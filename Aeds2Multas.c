@@ -20,7 +20,7 @@ typedef struct veiculo{
   int id;
 
 }TVeiculo;
-//teste
+
 typedef struct tdata{
   int dia;
   int mes;
