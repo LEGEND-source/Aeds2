@@ -64,7 +64,7 @@ typedef struct moduloMulta{
 
 void MSG_MENU()
 {
-    system("cls");
+    system("clear");
     printf("CONTROLE DE VEICULOS E MULTAS DE FICTIA");
     printf("\n\t1 -> Modulo 1 - Veiculos\n\t2 -> Modulo 2 - Multas\n\t3 -> Sair\n Digite uma opcao: ");
 }
@@ -72,7 +72,7 @@ void MSG_MENU()
 void MSG_SUBMENU(int modulo)
 {
 
-    system("cls");
+    system("clear");
     printf(">>>>>>>>> Modulo %d <<<<<<<<<", modulo);
 
     if(modulo == 1)
@@ -83,7 +83,7 @@ void MSG_SUBMENU(int modulo)
 }
 
 void MSG_SUBMENUV(){
-    system("cls");
+    system("clear");
     printf(">>>>>>>>> PESQUISAR <<<<<<<<<");
     printf("\n\t1 Placa\n\t2 Estado\n\t3 Sair\nDigite uma opcao: ");
 }
@@ -117,7 +117,6 @@ void msgMulta(TModuloVeiculo moduloVeiculo, TModuloMulta moduloMulta, int i, int
 }
 
 int compararHora(THora a, THora b){
-
   if(a.hora > b.hora)
   return 1;
   else if (a.hora < b.hora)
@@ -539,6 +538,9 @@ int main(int argc, char const *argv[]) {
     exit(1);
   }
 
+  rewind(arq);
+  rewind(arq2);
+
   while(k<TAM){
     LerMulta(arq2,&moduloMulta.vetor[k]);
     moduloMulta.indice++;
@@ -554,9 +556,40 @@ int main(int argc, char const *argv[]) {
     k++;
   }
 
+  do
+  {
 
-  ordenaMultaData(&moduloMulta);
-  imprimirTodosM(moduloMulta);
+      MSG_MENU();
+      fflush(stdin);
+      scanf("%d", &opcao);
 
+      switch (opcao)
+      {
+      case 1:
+          submenuVeiculo(&moduloVeiculo, veiculo);
+          break;
+
+      case 2:
+          submenuMulta(&moduloMulta, multa,&moduloVeiculo);
+          break;
+
+      case 3:
+          printf("\n\t>>>>>Sair<<<<<<\n");
+          getchar();
+          break;
+
+      default:
+          printf("\nOpcao invalida.");
+          getchar();
+
+      }
+  }
+  while(opcao != 3);
+
+
+
+  fclose(arq);
+  fclose(arq2);
   return 0;
+
 }
