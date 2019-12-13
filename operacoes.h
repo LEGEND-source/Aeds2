@@ -42,24 +42,35 @@ void ImprimirData(TData data){
   printf(" %d/%d/%d", data.dia, data.mes, data.ano);
 }
 
-void msgMulta(TModuloVeiculo moduloVeiculo, TModuloMulta moduloMulta, int i, int j){
-    printf("\n\n---------------------------------------------------------------------------");
-    printf("\n\tDEPARTAMENTO DE TRANSITO DE FICTIA");
-    printf("\n\tAo Sr(a). %s", moduloVeiculo.vetor[j].nome);
-    printf("\n\tRua: %s No: %d", moduloVeiculo.vetor[j].rua, moduloVeiculo.vetor[j].numero);
-    printf("\n\tBairro: %s", moduloVeiculo.vetor[j].bairro);
-    printf("\n\tCidade: %s", moduloVeiculo.vetor[j].cidade);
-    printf("\n\tEstado: %s", moduloVeiculo.vetor[j].estado);
-    printf("\n---------------------------------------------------------------------------");
-    printf("\n\tPrezado Sr(a) . %s", moduloVeiculo.vetor[j].nome);
-    printf("\n\tSeu veiculo, placa %s, foi flagrado trafegando acima", moduloMulta.vetor[i].placa);
-    printf("\n\tda velocidade permitida, em %d km/h, na rodovia %s,",  moduloMulta.vetor[i].velocidade,  moduloMulta.vetor[i].rodovia);
-    printf("\n\tkm %d, na data de",  moduloMulta.vetor[i].km);
-    ImprimirData( moduloMulta.vetor[i].data);
-    printf(". Voce possui 90 dias a partir");
-    printf("\n\tda data da infracao para protocolar defesa.");
-    printf("\n\tInformamos que essa infracao pode gerar multa de F$%.2f.", moduloMulta.vetor[i].multa);
-    printf("\n------------------------------ FIM DA AUTUACAO -----------------------------\n");
+void ImprimirData2(TData data, FILE* arquivo){
+  if(data.mes <=9 && data.dia  > 9)
+  fprintf(arquivo," %d/0%d/%d", data.dia, data.mes, data.ano);
+  if(data.dia <=9 && data.mes > 9)
+  fprintf(arquivo," 0%d/%d/%d", data.dia, data.mes, data.ano);
+  if(data.dia <=9 && data.mes <=9)
+  fprintf(arquivo," 0%d/0%d/%d", data.dia, data.mes, data.ano);
+  if(data.dia > 9 && data.mes > 9)
+  fprintf(arquivo," %d/%d/%d", data.dia, data.mes, data.ano);
+}
+
+void msgMulta(TModuloVeiculo moduloVeiculo, TModuloMulta moduloMulta, int i, int j, FILE* arquivo){
+    fprintf(arquivo,"\n\n---------------------------------------------------------------------------");
+    fprintf(arquivo,"\n\tDEPARTAMENTO DE TRANSITO DE FICTIA");
+    fprintf(arquivo,"\n\tAo Sr(a). %s", moduloVeiculo.vetor[j].nome);
+    fprintf(arquivo,"\n\tRua: %s No: %d", moduloVeiculo.vetor[j].rua, moduloVeiculo.vetor[j].numero);
+    fprintf(arquivo,"\n\tBairro: %s", moduloVeiculo.vetor[j].bairro);
+    fprintf(arquivo,"\n\tCidade: %s", moduloVeiculo.vetor[j].cidade);
+    fprintf(arquivo,"\n\tEstado: %s", moduloVeiculo.vetor[j].estado);
+    fprintf(arquivo,"\n---------------------------------------------------------------------------");
+    fprintf(arquivo,"\n\tPrezado Sr(a) . %s", moduloVeiculo.vetor[j].nome);
+    fprintf(arquivo,"\n\tSeu veiculo, placa %s, foi flagrado trafegando acima", moduloMulta.vetor[i].placa);
+    fprintf(arquivo,"\n\tda velocidade permitida, em %d km/h, na rodovia %s,",  moduloMulta.vetor[i].velocidade,  moduloMulta.vetor[i].rodovia);
+    fprintf(arquivo,"\n\tkm %d, na data de",  moduloMulta.vetor[i].km);
+    ImprimirData2(moduloMulta.vetor[i].data, arquivo);
+    fprintf(arquivo,". Voce possui 90 dias a partir");
+    fprintf(arquivo,"\n\tda data da infracao para protocolar defesa.");
+    fprintf(arquivo,"\n\tInformamos que essa infracao pode gerar multa de F$%.2f.", moduloMulta.vetor[i].multa);
+    fprintf(arquivo,"\n------------------------------ FIM DA AUTUACAO -----------------------------\n");
 }
 
 void imprimirVeiculo(TVeiculo vet, int j){
@@ -384,6 +395,7 @@ void encontrarMulta(TModuloMulta moduloMulta, TModuloVeiculo moduloVeiculo){
         while(moduloVeiculo.indice > j){
             if(strcmp(moduloMulta.vetor[i].placa,moduloVeiculo.vetor[j].placa) == 0){
                 arquivo = fopen(moduloVeiculo.vetor[i].nome, "w");
+                msgMulta(moduloVeiculo, moduloMulta, i, j, arquivo);
                 fclose(arquivo);
             }
             j++;
@@ -391,6 +403,7 @@ void encontrarMulta(TModuloMulta moduloMulta, TModuloVeiculo moduloVeiculo){
         j = 0;
         i++;
     }
+    printf("Os arquivos foram gerados e enviados com sucesso\n");
     getchar();
 }
 
