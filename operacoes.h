@@ -394,7 +394,7 @@ void encontrarMulta(TModuloMulta moduloMulta, TModuloVeiculo moduloVeiculo){
     while(moduloMulta.indice > i) {
         while(moduloVeiculo.indice > j){
             if(strcmp(moduloMulta.vetor[i].placa,moduloVeiculo.vetor[j].placa) == 0){
-                arquivo = fopen(moduloVeiculo.vetor[i].nome, "w");
+                arquivo = fopen(moduloVeiculo.vetor[j].nome, "w");
                 msgMulta(moduloVeiculo, moduloMulta, i, j, arquivo);
                 fclose(arquivo);
             }
