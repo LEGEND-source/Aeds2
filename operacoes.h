@@ -9,7 +9,6 @@ void MSG_MENU()
 
 void MSG_SUBMENU(int modulo)
 {
-
     system("clear");
     printf(">>>>>>>>> Modulo %d <<<<<<<<<", modulo);
 
@@ -84,9 +83,9 @@ void PesquisarVeiculoEstado(TModuloVeiculo moduloVeiculo, TVeiculo veiculo){
     char estado[3];
     int x=0, j = 0;
     printf("\nDigite o estado da placa do carro desejado: ");
-    fflush(stdin);
+    __fpurge(stdin);
     fgets(estado,3,stdin);
-    fflush(stdin);
+    __fpurge(stdin);
 
     while(x<moduloVeiculo.indice){
 
@@ -107,18 +106,19 @@ int PesquisarVeiculoPlaca(TModuloVeiculo moduloVeiculo, TVeiculo veiculo){
     int x=0;
 
     printf("\nDigite a placa do carro desejado: ");
-    fflush(stdin);
+    __fpurge(stdin);
     fgets(placa,9,stdin);
-    fflush(stdin);
     while(x<moduloVeiculo.indice){
-        printf("\n------ %d ",x/*, moduloVeiculo.indice*/);
         if(strcmp(placa, moduloVeiculo.vetor[x].placa)== 0){
             imprimirVeiculo(moduloVeiculo.vetor[x], x);
+            getchar();
             return x;
         }
         x++;
     }
     printf("\nVeiculo com placa %s nao encontrado.\n", placa);
+    __fpurge(stdin);
+    getchar();
     return -1;
 }
 
@@ -131,9 +131,9 @@ void submenuPesquisarVeiculo(TModuloVeiculo moduloVeiculo, TVeiculo veiculo){
 
     do
     {
-        system("cls");
+        system("clear");
         MSG_SUBMENUV();
-        fflush(stdin);
+        __fpurge(stdin);
         scanf("%d", &opcao);
 
         switch (opcao)
@@ -162,6 +162,7 @@ void submenuPesquisarVeiculo(TModuloVeiculo moduloVeiculo, TVeiculo veiculo){
 void imprimirTodosV(TModuloVeiculo moduloVeiculo){
   for(int x=0; x<moduloVeiculo.indice; x++)
   imprimirVeiculo(moduloVeiculo.vetor[x],x);
+  getchar();
 }
 
 void submenuVeiculo(TModuloVeiculo *moduloVeiculo, TVeiculo veiculo)
@@ -174,9 +175,9 @@ void submenuVeiculo(TModuloVeiculo *moduloVeiculo, TVeiculo veiculo)
     do
     {
 
-        system("cls");
+        system("clear");
         MSG_SUBMENU(1);
-        fflush(stdin);
+        __fpurge(stdin);
         scanf("%d", &opcao);
 
         switch (opcao)
@@ -304,9 +305,9 @@ int PesquisarMultaPlaca(TModuloMulta moduloMulta, TMulta multa){
     int x=0;
 
     printf("\nDigite a placa do carro desejado: ");
-    fflush(stdin);
+    __fpurge(stdin);
     fgets(placa,9,stdin);
-    fflush(stdin);
+    __fpurge(stdin);
     while(x<50){
         printf("\n\n - %s\n", moduloMulta.vetor[x].placa);
         if(strcmp(placa, moduloMulta.vetor[x].placa)== 0){
@@ -328,9 +329,9 @@ void submenuPesquisarMulta(TModuloMulta *moduloMulta, TMulta multa){
     do
     {
 
-        system("cls");
+        system("clear");
         MSG_SUBMENUM();
-        fflush(stdin);
+        __fpurge(stdin);
         scanf("%d", &opcao);
 
         switch (opcao)
@@ -403,6 +404,7 @@ void encontrarMulta(TModuloMulta moduloMulta, TModuloVeiculo moduloVeiculo){
 void imprimirTodosM(TModuloMulta moduloMulta){
   for(int x=0; x<moduloMulta.indice; x++)
   imprimirMulta(moduloMulta.vetor[x],x);
+  getchar();
 }
 
 void submenuMulta(TModuloMulta *moduloMulta, TMulta multa, TModuloVeiculo *moduloVeiculo)
@@ -415,9 +417,9 @@ void submenuMulta(TModuloMulta *moduloMulta, TMulta multa, TModuloVeiculo *modul
     do
     {
 
-        system("cls");
+        system("clear");
         MSG_SUBMENU(2);
-        fflush(stdin);
+        __fpurge(stdin);
         scanf("%d", &opcao);
 
         switch (opcao)
@@ -436,7 +438,7 @@ void submenuMulta(TModuloMulta *moduloMulta, TMulta multa, TModuloVeiculo *modul
         case 3:
             printf("\n\t>>>>>Ordenar<<<<<<\n");
             int orden = 0;
-            system("cls");
+            system("clear");
             printf(">>>>>>>>> ORDENAR <<<<<<<<<");
 
             printf("\n\t1 Placa\n\t2 Data\n\t3 Sair\nDigite uma opcao: ");
