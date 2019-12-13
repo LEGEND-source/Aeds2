@@ -302,16 +302,12 @@ void imprimirMulta(TMulta mult, int i){
 void PesquisarMultaPlaca(TModuloMulta moduloMulta, TMulta multa){
 
     char placa[9];
-    int x=0;
-
     printf("\nDigite a placa do carro desejado: ");
     __fpurge(stdin);
     fgets(placa,9,stdin);
-    while(x<moduloMulta.indice){
+    for(int x=0; x<moduloMulta.indice; x++)
         if(strcmp(placa, moduloMulta.vetor[x].placa)== 0)
             imprimirMulta(moduloMulta.vetor[x], x);
-        x++;
-    }
     getchar();
 }
 
@@ -382,12 +378,13 @@ void ordenaMultaPlaca(TModuloMulta *moduloMulta){
 }
 
 void encontrarMulta(TModuloMulta moduloMulta, TModuloVeiculo moduloVeiculo){
+  FILE *arquivo;
     int i = 0, j = 0;
     while(moduloMulta.indice > i) {
         while(moduloVeiculo.indice > j){
             if(strcmp(moduloMulta.vetor[i].placa,moduloVeiculo.vetor[j].placa) == 0){
-                printf("\n>>>>>>>>>>Multa %d<<<<<<<<<\n", i);
-                msgMulta(moduloVeiculo,moduloMulta, i ,j );
+                arquivo = fopen(moduloVeiculo.vetor[i].nome, "w");
+                fclose(arquivo);
             }
             j++;
         }
