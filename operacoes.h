@@ -299,7 +299,7 @@ void imprimirMulta(TMulta mult, int i){
   printf("==========================================\n");
 }
 
-int PesquisarMultaPlaca(TModuloMulta moduloMulta, TMulta multa){
+void PesquisarMultaPlaca(TModuloMulta moduloMulta, TMulta multa){
 
     char placa[9];
     int x=0;
@@ -307,16 +307,12 @@ int PesquisarMultaPlaca(TModuloMulta moduloMulta, TMulta multa){
     printf("\nDigite a placa do carro desejado: ");
     __fpurge(stdin);
     fgets(placa,9,stdin);
-    __fpurge(stdin);
-    while(x<50){
-        printf("\n\n - %s\n", moduloMulta.vetor[x].placa);
-        if(strcmp(placa, moduloMulta.vetor[x].placa)== 0){
+    while(x<moduloMulta.indice){
+        if(strcmp(placa, moduloMulta.vetor[x].placa)== 0)
             imprimirMulta(moduloMulta.vetor[x], x);
-        }
         x++;
     }
-    printf("\nMulta com placa %s nao encontrado.\n", placa);
-    return -1;
+    getchar();
 }
 
 void submenuPesquisarMulta(TModuloMulta *moduloMulta, TMulta multa){
