@@ -62,6 +62,60 @@ typedef struct moduloMulta{
   int ordem;
 }TModuloMulta;
 
+void MSG_MENU()
+{
+    system("cls");
+    printf("CONTROLE DE VEICULOS E MULTAS DE FICTIA");
+    printf("\n\t1 -> Modulo 1 - Veiculos\n\t2 -> Modulo 2 - Multas\n\t3 -> Sair\n Digite uma opcao: ");
+}
+
+void MSG_SUBMENU(int modulo)
+{
+
+    system("cls");
+    printf(">>>>>>>>> Modulo %d <<<<<<<<<", modulo);
+
+    if(modulo == 1)
+    printf("\n\t1 Pesquisar\n\t2 Imprimir\n\t3 Sair\nDigite uma opcao: ");
+
+    if(modulo == 2)
+    printf("\n\t1 Pesquisar\n\t2 Imprimir\n\t3 Ordenar\n\t4 Notificar Responsavel \n\t5 Sair\nDigite uma opcao: ");
+}
+
+void MSG_SUBMENUV(){
+    system("cls");
+    printf(">>>>>>>>> PESQUISAR <<<<<<<<<");
+    printf("\n\t1 Placa\n\t2 Estado\n\t3 Sair\nDigite uma opcao: ");
+}
+
+void MSG_SUBMENUM(){
+    system("clear");
+    printf(">>>>>>>>> PESQUISAR <<<<<<<<<");
+    printf("\n\t1 Placa\n\t2 Rodovia\n\t3 Data \n\t4 Sair\nDigite uma opcao: ");
+}
+
+void msgMulta(TModuloVeiculo moduloVeiculo, TModuloMulta moduloMulta, int i, int j){
+    printf("\n\n---------------------------------------------------------------------------");
+    printf("\n\tDEPARTAMENTO DE TRANSITO DE FICTIA");
+    printf("\n\tAo Sr(a). %s", moduloVeiculo.vetor[j].nome);
+    printf("\n\tRua: %s No: %d", moduloVeiculo.vetor[j].rua, moduloVeiculo.vetor[j].numero);
+    printf("\n\tBairro: %s", moduloVeiculo.vetor[j].bairro);
+    printf("\n\tCidade: %s", moduloVeiculo.vetor[j].cidade);
+    printf("\n\tEstado: %s", moduloVeiculo.vetor[j].estado);
+    printf("\n---------------------------------------------------------------------------");
+    printf("\n\tPrezado Sr(a) . %s", moduloVeiculo.vetor[j].nome);
+    printf("\n\tSeu veiculo, placa %s, foi flagrado trafegando acima", moduloMulta.vetor[i].placa);
+    printf("\n\tda velocidade permitida, em %d km/h, na rodovia %s,",  moduloMulta.vetor[i].velocidade,  moduloMulta.vetor[i].rodovia);
+    printf("\n\tkm %d, na data de",  moduloMulta.vetor[i].km);
+    ImprimirData( moduloMulta.vetor[i].data);
+    printf(". Voce possui 90 dias a partir");
+    printf("\n\tda data da infracao para protocolar defesa.");
+    printf("\n\tInformamos que essa infracao pode gerar multa de F$%.2f.", moduloMulta.vetor[i].multa);
+    printf("\n------------------------------ FIM DA AUTUACAO -----------------------------\n");
+
+
+}
+
 int compararHora(THora a, THora b){
 
   if(a.hora > b.hora)
