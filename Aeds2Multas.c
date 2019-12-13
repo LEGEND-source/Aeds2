@@ -62,6 +62,65 @@ typedef struct moduloMulta{
   int ordem;
 }TModuloMulta;
 
+int compararHora(THora a, THora b){
+
+  if(a.hora > b.hora)
+  return 1;
+  else if (a.hora < b.hora)
+  return -1;
+  else {
+    if(a.min > b.min)
+    return 1;
+    else if (a.min < b.min)
+    return -1;
+    else {
+      if(a.seg > b.seg)
+      return 1;
+      else if (a.seg < b.seg)
+      return -1;
+      else return 0;
+    }
+  }
+}
+
+
+int compararData(TMulta a, TMulta b){
+
+  if(a.data.ano > b.data.ano)
+  return 1;
+  else if (a.data.ano < b.data.ano)
+  return -1;
+  else {
+    if(a.data.mes > b.data.mes)
+    return 1;
+    else if (a.data.mes < b.data.mes)
+    return -1;
+    else {
+      if(a.data.dia > b.data.dia)
+      return 1;
+      else if (a.data.dia < b.data.dia)
+      return -1;
+      else compararHora(a.hora, b.hora);
+    }
+  }
+}
+
+void ordenaMultaData(TModuloMulta *moduloMulta){
+
+  int contador, i;
+  TMulta aux;
+  for (contador = 1; contador < TAM; contador++) {
+    for (i = 0; i < TAM - 1; i++) {
+      if (compararData(moduloMulta->vetor[i],moduloMulta->vetor[i+1])>0) {
+        aux = moduloMulta->vetor[i];
+        moduloMulta->vetor[i] = moduloMulta->vetor[i+1];
+        moduloMulta->vetor[i+1] = aux;
+      }
+    }
+  }
+  moduloMulta->ordem = 2;
+}
+
 void iniciarVeiculo(TModuloVeiculo *moduloVeiculo){
   moduloVeiculo->indice=0;
 }
@@ -441,6 +500,8 @@ int main(int argc, char const *argv[]) {
     k++;
   }
 
+
+  ordenaMultaData(&moduloMulta);
   imprimirTodosM(moduloMulta);
 
   return 0;
